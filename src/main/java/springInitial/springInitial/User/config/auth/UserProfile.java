@@ -10,7 +10,7 @@ public class UserProfile {
     private String userName;
     private String userEmail;
 
-    private String provider;
+    private String platformType;
   //  private String password;
 
     public User toUser(){
@@ -18,7 +18,7 @@ public class UserProfile {
                 .userName(userName)
                 .userEmail(userEmail)
               //  .password(password)
-                .provider(provider)
+                .platformType(platformType)
                 .build();
     }
 }

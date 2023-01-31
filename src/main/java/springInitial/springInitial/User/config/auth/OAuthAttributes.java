@@ -41,7 +41,7 @@ public enum OAuthAttributes {
 
     public static UserProfile extract(String registrationId, Map<String, Object> attributes) {
         return Arrays.stream(values())
-                .filter(provider -> registrationId.equals(provider.registrationId))
+                .filter(platformType -> registrationId.equals(platformType.registrationId))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new)
                 .of.apply(attributes);

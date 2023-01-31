@@ -2,10 +2,14 @@ package springInitial.springInitial.User.config.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity //Spring Security 설정을 활성화시켜주는
 @RequiredArgsConstructor // final 필드 생성자 만들어줌
@@ -26,4 +30,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userService(oAuthService); //OAuth2 로그인 성공 시, 작업을 진행할 userService
     }
 
+/*    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .authorizeRequests()
+                .antMatchers("/").authenticated()
+                .anyRequest().permitAll();
+
+        httpSecurity
+                .formLogin()
+                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/api/login")
+                .defaultSuccessUrl("/")
+                .and()
+                .logout()
+                .and()
+                .csrf().disable();
+
+        return httpSecurity.build();
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }*/
 }

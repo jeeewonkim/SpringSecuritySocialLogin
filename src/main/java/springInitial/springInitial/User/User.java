@@ -15,28 +15,32 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userID")
-    private Long userID;
+    @Column(name = "userNum")
+    private Long userNum;
 
-    @Column(name = "userEmail", nullable = false)
+    @Column(name = "userID")
+    private String userID;
+
+    @Column(name = "userEmail")
     private String userEmail;
 
     @Column(name = "userName", nullable = false, unique = true)
     private String userName;
 
-    @Column(name = "provider")
-    private String provider;
+    @Column(name = "platformType")
+    private String platformType;
 
     @Column(name = "password")
     private String password;
 
     @Builder
-    public User(Long userID, String userEmail, String userName, String password, String provider){
+    public User(Long userNum, String userID, String userEmail, String userName, String password, String platformType){
+        this.userNum = userNum;
         this.userID = userID;
         this.userEmail = userEmail;
         this.userName = userName;
         this.password = password;
-        this.provider = provider;
+        this.platformType = platformType;
     }
 
     public User update(String userEmail, String userName){

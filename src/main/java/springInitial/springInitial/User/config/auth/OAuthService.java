@@ -46,7 +46,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         // registrationId에 따라 유저 정보를 통해 공통된 UserProfile 객체로 만들어 줌
         UserProfile userProfile = OAuthAttributes.extract(registrationId, attributes);
 
-        userProfile.setProvider(registrationId);
+        userProfile.setPlatformType(registrationId);
         User user = saveOrUpDate(userProfile);
 
         Map<String, Object> customAttribute = customAttribute(attributes, userNameAttributeName, userProfile,registrationId);
@@ -62,7 +62,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
     private Map customAttribute(Map attributes, String userNameAttributeName, UserProfile userProfile, String registrationId){
         Map<String,Object> customAttribute = new LinkedHashMap<>();
         customAttribute.put(userNameAttributeName, attributes.get(userNameAttributeName));
-        customAttribute.put("provider", registrationId);
+        customAttribute.put("platformType", registrationId);
         customAttribute.put("userName", userProfile.getUserName());
         customAttribute.put("userEmail", userProfile.getUserEmail());
         return customAttribute;
@@ -70,7 +70,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
     //유저 정보 변경을 대비한 DB update 코드
     private User saveOrUpDate(UserProfile userProfile){
-        User user = userRepository.findByUserEmailAndProvider(userProfile.getUserEmail(),userProfile.getProvider())
+        User user = userRepository.findByUserEmailAndPlatformType(userProfile.getUserEmail(),userProfile.getPlatformType())
                 .map(m->m.update(userProfile.getUserName(),userProfile.getUserEmail()))
                 .orElse(userProfile.toUser());
 
